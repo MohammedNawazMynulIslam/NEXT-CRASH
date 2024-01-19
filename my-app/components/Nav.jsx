@@ -6,16 +6,17 @@ import Image from "next/image";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 export const Nav = () => {
-  const userLoggedIn = true;
+  const { data: session } = useSession();
+
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    const setProviders = async () => {
+    const setUpProviders = async () => {
       const res = await getProviders();
       setProviders(res);
     };
-    setProviders();
+    setUpProviders();
   }, []);
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -28,46 +29,48 @@ export const Nav = () => {
           className="object-contain"
         ></Image>
         <p className="logo_text">Promptopia</p>
-        {/* Desktop navigation */}
-        <div className="sm:flex hidden">
-          {userLoggedIn ? (
-            <div className="flex gap-3 md:gap-5">
-              <Link href="/create-prompt" className="black_btn">
-                Create Post
-              </Link>
-              <button type="button" onClick={signOut} className="outline_btn">
-                Sign Out
-              </button>
-              <Link href="/profile">
-                <Image
-                  src={"/assets/images/profile.svg"}
-                  width={35}
-                  height={35}
-                  className="rounded-full"
-                  alt="profile pic"
-                />
-              </Link>
-            </div>
-          ) : (
-            <>
-              {providers &&
-                Object.values(providers).map((provider) => (
-                  <button
-                    type="button"
-                    key={provider.name}
-                    onClick={() => signIn(provider.id)}
-                    className="black_btn"
-                  >
-                    Sign In
-                  </button>
-                ))}
-            </>
-          )}
-        </div>
       </Link>
+
+      {/* Desktop navigation */}
+      <div className="sm:flex hidden">
+        {session?.user ? (
+          <div className="flex gap-3 md:gap-5">
+            <Link href="/create-prompt" className="black_btn">
+              Create Post
+            </Link>
+            <button type="button" onClick={signOut} className="outline_btn">
+              Sign Out
+            </button>
+            <Link href="/profile">
+              <Image
+                src={"/assets/images/profile.svg"}
+                width={35}
+                height={35}
+                className="rounded-full"
+                alt="profile pic"
+              />
+            </Link>
+          </div>
+        ) : (
+          <>
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type="button"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id)}
+                  className="black_btn"
+                >
+                  Sign In
+                </button>
+              ))}
+          </>
+        )}
+      </div>
+
       {/* Mobile navigation */}
       <div className="sm:hidden flex relative">
-        {userLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
               src={"/assets/images/profile.svg"}
