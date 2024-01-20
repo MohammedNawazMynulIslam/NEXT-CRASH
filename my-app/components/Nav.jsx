@@ -43,7 +43,7 @@ export const Nav = () => {
             </button>
             <Link href="/profile">
               <Image
-                src={"/assets/images/profile.svg"}
+                src={session?.user?.image}
                 width={35}
                 height={35}
                 className="rounded-full"
@@ -73,7 +73,7 @@ export const Nav = () => {
         {session?.user ? (
           <div className="flex">
             <Image
-              src={"/assets/images/profile.svg"}
+              src={session?.user.image}
               width={35}
               height={35}
               className="rounded-full"
