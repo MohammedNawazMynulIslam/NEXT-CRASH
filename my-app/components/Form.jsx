@@ -27,6 +27,19 @@ export const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             className="form_textarea"
           ></textarea>
         </label>
+        <label>
+          <span className="font-satoshi font-semibold text-base text-gray-700">
+            Tag{` `}
+          </span>
+          <span className="font-normal">(#product, #webdevelopment,#idea)</span>
+          <input
+            value={post.tag}
+            onChange={(e) => setPost({ ...post, tag: e.target.value })}
+            placeholder="#tag "
+            required
+            className="form_input"
+          ></input>
+        </label>
       </form>
     </section>
   );
