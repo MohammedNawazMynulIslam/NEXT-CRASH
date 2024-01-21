@@ -1,5 +1,11 @@
-import React from "react";
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useParams, useRouter } from "next/navigation";
 
-export const PrompCard = () => {
+const PrompCard = () => {
   return <div>PrompCard</div>;
 };
+
+export default PrompCard;
