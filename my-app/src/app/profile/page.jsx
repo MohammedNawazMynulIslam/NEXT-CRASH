@@ -20,7 +20,7 @@ const MyProfile = () => {
     <Profile
       name="My"
       desc="Welcome to your personal profile"
-      data={[]}
+      data={posts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
     ></Profile>
