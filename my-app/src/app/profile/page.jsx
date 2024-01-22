@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Profile } from "@components/Profile";
+import Swal from "sweetalert2";
 
 const MyProfile = () => {
   const { data: session } = useSession();
@@ -17,13 +18,23 @@ const MyProfile = () => {
     };
     if (session?.user?.id) fetchPosts();
   }, []);
+
   const handleEdit = (post) => {
     router.push(`/update-prompt?id=${post._id}`);
   };
 
   const handleDelete = async (post) => {
-    const hasConfirmed = confirm("Are you sure to delete the prompt");
-    if (hasConfirmed) {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
       try {
         await fetch(`/api/prompt/${post._id.toString()}`, {
           method: "DELETE",
@@ -37,13 +48,16 @@ const MyProfile = () => {
     }
   };
   return (
-    <Profile
-      name="My"
-      desc="Welcome to your personal profile"
-      data={posts}
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-    ></Profile>
+    <>
+      <Profile
+        name="My"
+        desc="Welcome to your personal profile"
+        data={posts}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      ></Profile>
+    </>
   );
 };
+
 export default MyProfile;

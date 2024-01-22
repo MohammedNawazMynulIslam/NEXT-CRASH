@@ -1,6 +1,7 @@
 import "@styles/globals.css";
 import { Nav } from "@components/Nav";
 import { Provider } from "@components/Provider";
+
 export const metadata = {
   title: "PromptHeaven",
   description: "Find thousands of news prompts under a single hood.",

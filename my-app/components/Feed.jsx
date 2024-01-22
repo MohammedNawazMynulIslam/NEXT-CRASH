@@ -4,7 +4,7 @@ import PrompCard from "./PrompCard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 prompt_layout">
+    <div className="mt-16 flex flex-col  lg:flex-row gap-5">
       {data.map((post) => (
         <PrompCard
           key={post._id}
@@ -21,6 +21,7 @@ export const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   const handleSearchChange = (e) => {};
+
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await fetch("/api/prompt");
@@ -29,17 +30,19 @@ export const Feed = () => {
     };
     fetchPosts();
   }, []);
+
   return (
     <section className="feed">
-      <form className="relative w-full flex-center">
+      <form className="relative w-full">
         <input
           type="text"
-          placeholder="Search for a tag "
-          value={searchText}
+          placeholder="Search prompt ,tag or profile "
+          // value={searchText}
           onChange={handleSearchChange}
           required
           className="search_input peer"
         />
+
         <PromptCardList data={posts} handleTagClick={() => {}}></PromptCardList>
       </form>
     </section>
