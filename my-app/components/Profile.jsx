@@ -1,5 +1,5 @@
 import React from "react";
-
+import PrompCard from "./PrompCard";
 export const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
   return (
     <section className="w-full">
@@ -10,12 +10,12 @@ export const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
 
       <div className="mt-10 prompt_layout">
         {data.map((post) => (
-          <PromptCard
+          <PrompCard
             key={post._id}
             post={post}
             handleEdit={() => handleEdit && handleEdit(post)}
             handleDelete={() => handleDelete && handleDelete(post)}
-          ></PromptCard>
+          ></PrompCard>
         ))}
       </div>
     </section>
