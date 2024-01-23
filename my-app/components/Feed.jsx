@@ -37,17 +37,7 @@ export const Feed = () => {
   };
 
   const handleTagClick = (clickedTag) => {
-    console.log("tag clicked", clickedTag);
     setSearchText(clickedTag); // Set the search text to the clicked tag
-    // const filteredPost = posts.filter((post) => {
-    //   const promptMatches = post.prompt.toLowerCase().includes(clickedTag);
-    //   const tagMatches = post.tag.toLowerCase().includes(clickedTag);
-    //   const profileMatches = post.creator.username
-    //     .toLowerCase()
-    //     .includes(clickedTag);
-    //   return promptMatches || tagMatches || profileMatches;
-    // });
-    // setFilteredPosts(filteredPost);
   };
 
   useEffect(() => {
