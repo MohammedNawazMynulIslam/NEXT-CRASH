@@ -9,7 +9,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
         <PrompCard
           key={post._id}
           post={post}
-          onClick={handleTagClick}
+          handleTagClick={handleTagClick}
         ></PrompCard>
       ))}
     </div>
@@ -36,6 +36,20 @@ export const Feed = () => {
     setSearchText(form);
   };
 
+  const handleTagClick = (clickedTag) => {
+    console.log("tag clicked", clickedTag);
+    setSearchText(clickedTag); // Set the search text to the clicked tag
+    // const filteredPost = posts.filter((post) => {
+    //   const promptMatches = post.prompt.toLowerCase().includes(clickedTag);
+    //   const tagMatches = post.tag.toLowerCase().includes(clickedTag);
+    //   const profileMatches = post.creator.username
+    //     .toLowerCase()
+    //     .includes(clickedTag);
+    //   return promptMatches || tagMatches || profileMatches;
+    // });
+    // setFilteredPosts(filteredPost);
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await fetch("/api/prompt");
@@ -60,7 +74,7 @@ export const Feed = () => {
 
         <PromptCardList
           data={filteredPosts}
-          handleTagClick={() => {}}
+          handleTagClick={handleTagClick}
         ></PromptCardList>
       </form>
     </section>
